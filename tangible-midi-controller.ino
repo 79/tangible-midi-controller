@@ -9,7 +9,11 @@ int keyCount = 9;
 int baseNote = 48; // C4
 
 void setup() {
-  Serial.begin(31250);
+  #if DEBUG == 1
+    Serial.begin(31250);
+  #else
+    Serial.begin(9600);
+  #endif
 
   for (int i = 0; i < keyCount; i++) {
     pinMode(keys[i], INPUT_PULLUP);
