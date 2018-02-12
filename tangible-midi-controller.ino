@@ -1,9 +1,11 @@
 #define DEBUG 1
 
-const int buttonPin = 0;
-int keys[] = {2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13};
-int oldKeyState[] = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
-int keyCount = 12;
+//int keys[] = {2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13};
+//int oldKeyState[] = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
+//int keyCount = 12;
+int keys[] = {4, 5, 6, 7, 9, 10, 11, 12, 13};
+int oldKeyState[] = {1, 1, 1, 1, 1, 1, 1, 1, 1};
+int keyCount = 9;
 int baseNote = 48; // C4
 
 void setup() {
@@ -15,6 +17,9 @@ void setup() {
 }
 
 void loop() {
+  /**
+    1. Keys
+  */
   byte thisCommand;
   byte thisNote;
   byte thisVolume = 127;
@@ -26,15 +31,15 @@ void loop() {
     if (curKeyState[i] != oldKeyState[i]) {
       thisNote = baseNote + i;
 
-      if (curKeyState == LOW) {
+      if (curKeyState[i] == LOW) {
         thisCommand = 0x90; // noteOn
       } else {
         thisCommand = 0x80; // noteOff
       }
-    }
 
-    sendMidiMessage(thisCommand, thisNote, thisVolume);
-    oldKeyState[i] = curKeyState[i];
+      sendMidiMessage(thisCommand, thisNote, thisVolume);
+      oldKeyState[i] = curKeyState[i];
+    }
   }
 
 
