@@ -46,10 +46,22 @@ void loop() {
     }
   }
 
-
   /**
-    2. Map sensor readings to keyboard inputs
+    2. Pitch Bend
   */
+  int threshold = 10;
+  int bendReading = analogRead(A0);
+
+  if (bendReading > threshold) {
+    // midi high byte
+    byte msb = highByte(bendReading << 1);
+
+    // midi low byte
+    byte lsb = lowByte(bendReading);
+    bitWrite(lsb, 7, 0);
+
+    sendMidiMessage(0xE0, lsb, msb);
+  }
 
   /**
     3. DEBUG OUTPUT
@@ -62,12 +74,15 @@ void loop() {
       Serial.print(i);
       Serial.print("\t");
     }
+    Serial.print("ANALOG \t");
     Serial.println();
 
     for (int k = 0; k < keyCount; k++) {
       Serial.print(digitalRead(keys[k]));
       Serial.print("\t");
     }
+    Serial.print(bendReading);
+    Serial.print("\t");
   #endif
 }
 
