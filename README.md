@@ -1,6 +1,5 @@
-Tangible Interaction: Lunar Lander
-==================================
+Tangible Interaction: MIDI Controller
+=====================================
 
-Using an Arduino MKR1000 as an HID controller (via Keyboard and Mouse libraries) to play Lunar Lander.
+Using an Arduino UNO as MIDI controller (MIDI output device). 
 
-[Lunar Lander Game](http://moonlander.seb.ly/)
